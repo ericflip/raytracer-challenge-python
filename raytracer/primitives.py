@@ -45,6 +45,25 @@ class Vector(Tuple):
         elif isinstance(other, Point):
             raise ValueError("Can't subtract `Point` from `Vector`")
 
+    def mag(self) -> float:
+        return (self.x**2 + self.y**2 + self.z**2 + self.w**2) ** 0.5
+
+    def norm(self) -> "Vector":
+        return self / self.mag()
+
+    def __matmul__(self, other: "Vector") -> float:
+        return self.x * other.x + self.y * other.y + self.z * other.z + self.w * other.w
+
+    def dot(self, other: "Vector"):
+        return self @ other
+
+    def cross(self, other: "Vector"):
+        return Vector(
+            self.y * other.z - self.z * other.y,
+            self.z * other.x - self.x * other.z,
+            self.x * other.y - self.y * other.x,
+        )
+
 
 if __name__ == "__main__":
     a = Vector(1, 1, 1)
@@ -57,3 +76,20 @@ if __name__ == "__main__":
     print(c - a)
     print(a / 3)
     print(a - b)
+
+    d = Vector(1, 2, 3)
+
+    assert d.mag() == 14**0.5
+
+    e = Vector(4, 0, 0)
+
+    assert e.norm() == Vector(1, 0, 0)
+
+    a = Vector(1, 2, 3)
+    b = Vector(2, 3, 4)
+    assert a.dot(b) == 20
+
+    a = Vector(1, 0, 0)
+    b = Vector(0, 1, 0)
+
+    assert a.cross(b) == Vector(0, 0, 1)
