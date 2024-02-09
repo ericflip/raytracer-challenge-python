@@ -1,4 +1,4 @@
-from tuple import Tuple
+from .tuple import Tuple
 from typing import Union
 
 

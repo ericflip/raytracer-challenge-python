@@ -42,7 +42,7 @@ class Tuple:
         )
 
     def __repr__(self):
-        return f"<{self.x}, {self.y}, {self.z}, {self.w}>"
+        return f"({self.x}, {self.y}, {self.z}, {self.w})"
 
 
 if __name__ == "__main__":
